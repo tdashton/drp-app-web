@@ -1,0 +1,35 @@
+<h1 class="title">Add Inventory</h1>
+<form [formGroup]="inventoryForm" (ngSubmit)="onSubmit()">
+    <div class="field">
+        <label class="label">Name</label>
+        <div class="control">
+            <input class="input" type="text" formControlName="name" name="name" placeholder="Text input" required>
+        </div>
+        <p *ngIf="nameFormControl.invalid" class="help is-danger">
+            This field is required
+        </p>
+    </div>
+    <div class="field">
+        <label class="label">Unit</label>
+        <div class="control">
+            <div class="select">
+                <select formControlName="unit">
+                    <option [ngValue]="null" disabled>Choose a unit</option>
+                    <option *ngFor="let unit of units" [ngValue]="unit">{{ unit }}</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="field">
+        <label class="label">Description</label>
+        <div class="control">
+            <textarea formControlName="description" class="textarea" type="textarea" name="description" placeholder="Description"></textarea>
+        </div>
+        <p *ngIf="descriptionFormControl.invalid" [class]="'help is-danger'">
+            Description is required
+        </p>
+    </div>
+    <div class="control">
+        <button type="submit" class="button is-primary">Submit</button>
+    </div>
+</form>

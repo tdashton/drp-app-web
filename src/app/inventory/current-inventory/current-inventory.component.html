@@ -1,0 +1,11 @@
+<h1 class="title">Current Inventory</h1>
+<div>
+  <div *ngFor="let item of currentInventory" class="columns">
+    <div class="column">
+      <p>
+        Name: {{ item.name }} <br/>
+        Description: {{ item.description }}
+      </p>
+    </div>
+  </div>
+</div>

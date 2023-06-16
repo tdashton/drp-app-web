@@ -4,35 +4,9 @@
 <hr>
 <div class="columns">
     <div class="column">
-        <header class="header">Add Inventory</header>
-        <div class="field">
-            <label class="label">Name</label>
-            <div class="control">
-                <input class="input" type="text" name="name" placeholder="Text input">
-            </div>
-        </div>
-        <div class="field">
-            <label class="label">Unit</label>
-            <div class="control">
-                <div class="select">
-                    <select>
-                        <option>Meter</option>
-                        <option>Count</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-        <div class="field">
-            <label class="label">Description</label>
-            <div class="control">
-                <textarea class="textarea" type="textarea" name="description" placeholder="Description"></textarea>
-            </div>
-        </div>
-        <div class="control">
-            <button class="button is-primary">Submit</button>
-        </div>
+        <app-inventory-form></app-inventory-form>
     </div>
     <div class="column">
-        Current Inventory
+        <app-current-inventory></app-current-inventory>
     </div>
 </div>

@@ -1,0 +1,38 @@
+<p>
+    Here you can manage your inventory. You have things you buy <em>(inventory)</em> and batches of inventory which you have actually bought <em>(supply)</em> - e.g. you have a keyring which you plan to buy then you buy 100 keyrings. First you have the plan to buy the keyring then you buy the actual keyring.
+</p>
+<hr>
+<div class="columns">
+    <div class="column">
+        <header class="header">Add Inventory</header>
+        <div class="field">
+            <label class="label">Name</label>
+            <div class="control">
+                <input class="input" type="text" name="name" placeholder="Text input">
+            </div>
+        </div>
+        <div class="field">
+            <label class="label">Unit</label>
+            <div class="control">
+                <div class="select">
+                    <select>
+                        <option>Meter</option>
+                        <option>Count</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="field">
+            <label class="label">Description</label>
+            <div class="control">
+                <textarea class="textarea" type="textarea" name="description" placeholder="Description"></textarea>
+            </div>
+        </div>
+        <div class="control">
+            <button class="button is-primary">Submit</button>
+        </div>
+    </div>
+    <div class="column">
+        Current Inventory
+    </div>
+</div>

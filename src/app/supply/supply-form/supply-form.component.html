@@ -5,7 +5,7 @@
     </div>
     <div class="column is-half">
       <div class="select">
-        <select formControlName="inventoryItemId">
+        <select formControlName="inventoryId">
           <option *ngFor="let item of inventory; let i = index" [value]="inventory[i].id">{{ item.name }}</option>
         </select>
       </div>

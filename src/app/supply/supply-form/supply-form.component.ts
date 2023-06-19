@@ -15,7 +15,7 @@ export class SupplyFormComponent implements OnInit {
 
   protected inventory: Inventory[] = [];
   protected supplyForm = new FormGroup({
-    inventoryItemId: new FormControl('', [Validators.required]),
+    inventoryId: new FormControl('', [Validators.required]),
     cost: new FormControl(null, [Validators.required, Validators.pattern(/^\d+$/)]),
     amount: new FormControl(null, [Validators.required, Validators.pattern(/^\d+$/)]),
     info: new FormControl(''),
@@ -43,7 +43,6 @@ export class SupplyFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.inventory = this.inventoryService.getInventory();
-    this.supplyForm.get('inventoryItemId')?.setValue(this.inventory[0].id);
+    this.supplyForm.get('inventoryId')?.setValue(this.inventory[0].id);
   }
-
 }

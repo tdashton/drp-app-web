@@ -6,7 +6,7 @@ export class Supply {
     public id: string,
     public info: string,
     public cost: number,
-    public inventory_id: string,
+    public inventoryId: string,
     public amount: number,
   ) {}
 
@@ -14,9 +14,9 @@ export class Supply {
     const id: string = obj.id ? obj.id : '';
     const info: string = obj.info ? obj.info : '';
     const cost: number = obj.cost ? obj.cost : 0;
-    const inventory_id: string = obj.inventory_id ? obj.inventory_id : '';
+    const inventoryId: string = obj.inventoryId ? obj.inventoryId : '';
     const amount: number = obj.amount ? obj.amount : 0;
 
-    return new Supply(id, info, cost, inventory_id, amount);
+    return new Supply(id, info, cost, inventoryId, amount);
   }
 }

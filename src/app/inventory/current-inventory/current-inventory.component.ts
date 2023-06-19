@@ -11,17 +11,15 @@ import { Subscription } from 'rxjs';
 })
 export class CurrentInventoryComponent implements OnInit, OnDestroy {
 
-  currentInventory: Inventory[];
+  currentInventory!: Inventory[];
   subscription!: Subscription;
 
-  constructor (protected inventoryService: InventoryService) {
-    this.currentInventory = this.inventoryService.getInventory();
-  }
+  constructor (protected inventoryService: InventoryService) { }
 
   ngOnInit(): void {
+    this.currentInventory = this.inventoryService.getInventory();
     this.subscription = this.inventoryService.inventoryUpdated.subscribe((inventory: Inventory) => {
       console.log(inventory);
-      this.currentInventory.push(inventory);
     });
   }
 

@@ -1,0 +1,59 @@
+<form [formGroup]="supplyForm" (ngSubmit)="onSubmit()">
+  <div class="columns">
+    <div class="column is-half">
+      Which inventory are you adding supply for?
+    </div>
+    <div class="column is-half">
+      <div class="select">
+        <select formControlName="inventoryItemId">
+          <option *ngFor="let item of inventory; let i = index" [value]="inventory[i].id">{{ item.name }}</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="columns">
+    <div class="column">
+      <label class="label">Cost</label>
+    </div>
+    <div class="column">
+      <input formControlName="cost" class="input" type="text" placeholder="How much?">
+      <p *ngIf="supplyForm.get('cost')?.errors?.['required']" class="help is-danger">
+        This field is required
+      </p>
+      <p *ngIf="supplyForm.get('cost')?.errors?.['pattern']" class="help is-danger">
+        Must be only digits
+      </p>
+   </div>
+  </div>
+  <div class="columns">
+    <div class="column">
+      <label class="label">Amount</label>
+    </div>
+    <div class="column">
+      <input formControlName="amount" id="amount" class="input" type="text" placeholder="How many?">
+      <p *ngIf="supplyForm.get('amount')?.errors?.['required']" class="help is-danger">
+        This field is required
+      </p>
+      <p *ngIf="supplyForm.get('cost')?.errors?.['pattern']" class="help is-danger">
+        Must be only digits
+      </p>
+    </div>
+  </div>
+  <div class="columns">
+    <div class="column">
+      <label class="label">Info (Name)</label>
+    </div>
+  </div>
+  <div class="columns">
+    <div class="column">
+      <textarea formControlName="info" class="textarea" placeholder="Some info.. e.g. from eBay"></textarea>
+    </div>
+  </div>
+  <div class="columns">
+    <div class="column">
+      <div class="control">
+        <button [disabled]="!supplyForm.valid" class="button is-primary">Submit</button>
+      </div>
+    </div>
+  </div>
+</form>

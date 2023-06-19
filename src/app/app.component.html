@@ -1,11 +1,25 @@
 <section class="section">
   <div class="container">
-    <h1 class="title">
-      Designer Base
-    </h1>
-    <p class="subtitle">
-      Plan, design, keep an overview!
-    </p>
-    <app-inventory></app-inventory>
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://bulma.io">
+        <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
+      </a>
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+      <div id="navbarBasicExample" class="navbar-menu">
+        <div class="navbar-start">
+          <a [href]="" class="navbar-item">Home</a>
+          <a [href]="'/inventory'" class="navbar-item">Inventory</a>
+          <a [href]="'/supply'" class="navbar-item">Supply</a>
+          <a [href]="'/products'" class="navbar-item">Products</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <router-outlet></router-outlet>
   </div>
 </section>

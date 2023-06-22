@@ -12,6 +12,7 @@ import { routing } from './app.routing';
 import { RouterModule } from '@angular/router';
 import { SupplyFormComponent } from './supply/supply-form/supply-form.component';
 import { CurrentSupplyComponent } from './supply/current-supply/current-supply.component';
+import { SupplyService } from './supply/supply.service';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,7 @@ import { CurrentSupplyComponent } from './supply/current-supply/current-supply.c
     routing,
     RouterModule,
   ],
-  providers: [InventoryService],
+  providers: [InventoryService, SupplyService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

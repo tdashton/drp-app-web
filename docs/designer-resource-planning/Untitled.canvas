@@ -1,0 +1,14 @@
+{
+	"nodes":[
+		{"id":"a128ed1b67697fc9","x":-1360,"y":-760,"width":400,"height":560,"type":"file","file":"Models/Inventory.md"},
+		{"id":"b6e24a08f872847a","x":-720,"y":-960,"width":400,"height":560,"type":"file","file":"Models/Piece of Inventory.md"},
+		{"type":"file","file":"Models/Design.md","id":"addc9ee94b41daaa","x":-720,"y":-80,"width":400,"height":558},
+		{"id":"97ffaf7f77e1a537","x":160,"y":-520,"width":400,"height":551,"type":"file","file":"Models/Product.md"}
+	],
+	"edges":[
+		{"id":"590151e89d23ef5f","fromNode":"a128ed1b67697fc9","fromSide":"right","toNode":"b6e24a08f872847a","toSide":"left"},
+		{"id":"662a31414d550ab1","fromNode":"addc9ee94b41daaa","fromSide":"right","toNode":"97ffaf7f77e1a537","toSide":"left"},
+		{"id":"785214efdd20c26c","fromNode":"a128ed1b67697fc9","fromSide":"right","toNode":"addc9ee94b41daaa","toSide":"left"},
+		{"id":"11ad21bbe3c5b5cc","fromNode":"b6e24a08f872847a","fromSide":"right","toNode":"97ffaf7f77e1a537","toSide":"left"}
+	]
+}

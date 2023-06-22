@@ -4,6 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { InventoryService } from 'src/app/inventory/inventory.service';
 import { Inventory } from 'src/app/models/inventory/inventory.model';
 import { Supply } from 'src/app/models/supply/supply.model';
+import { SupplyService } from '../supply.service';
 
 @Component({
   selector: 'app-supply-form',
@@ -22,7 +23,8 @@ export class SupplyFormComponent implements OnInit {
   });
 
   constructor(
-    protected inventoryService: InventoryService
+    protected inventoryService: InventoryService,
+    protected supplyService: SupplyService,
   ) { }
 
   onSubmit() {
@@ -38,11 +40,11 @@ export class SupplyFormComponent implements OnInit {
       this.supplyForm.get('amount')?.value ?? -1,
     );
 
-    console.log(supply);
+    this.supplyService.addSupply(supply);
   }
 
   ngOnInit(): void {
     this.inventory = this.inventoryService.getInventory();
-    this.supplyForm.get('inventoryId')?.setValue(this.inventory[0].id);
+//    this.supplyForm.get('inventoryId')?.setValue(this.inventory[0].id);
   }
 }

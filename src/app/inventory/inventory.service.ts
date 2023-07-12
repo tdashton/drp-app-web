@@ -15,7 +15,6 @@ export class InventoryService {
   public inventoryUpdated = new EventEmitter<Inventory>();
 
   constructor() {
-
     this.inventoryManager = new Manager<Inventory>(
       localStorage,
       InventoryService.LOCAL_STORAGE_KEY,
@@ -35,6 +34,17 @@ export class InventoryService {
   }
 
   public addInventory(inventory: Inventory) {
+    const nextId = this.inventory
+      .map((current: Inventory): number => Number.parseInt(current.id))
+      .reduce((previous: number, current: number) => {
+        if (current > previous) {
+          return current;
+        }
+        return previous;
+      }, 0) + 1;
+
+    inventory.id = nextId.toString();
+
     this.inventoryManager.insert(inventory);
     this.inventoryUpdated.emit(inventory);
     this.inventoryManager.persist();

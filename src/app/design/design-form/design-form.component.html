@@ -1,0 +1,47 @@
+<form [formGroup]="designForm">
+  <div class="field">
+    <label class="label">What are you designing?</label>
+    <div class="control">
+      <input class="input" type="text" placeholder="Description" formControlName="description">
+    </div>
+  </div>
+  <div class="field">
+    <label class="label">What does it consist of?</label>
+    <div class="columns">
+      <div class="column">
+        <div class="select">
+          <select formControlName="inventory">
+            <option [ngValue]="null" disabled>Choose your inventory</option>
+            <option *ngFor="let item of inventory; let i = index" [ngValue]="i">{{ item.name }}</option>
+          </select>
+        </div>
+      </div>
+      <div class="column">
+        <div class="field is-grouped">
+          <div class="control"><button (click)="onClickAddInventory()" class="button is-primary">Add</button></div>
+          <div class="control"><button (click)="onSave()" [disabled]="addedInventory.length === 0" class="button is-info">Save</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="this.addedInventory.length !== 0" class="field" formArrayName="addedInventory">
+    <div class="columns">
+      <div class="column"><label class="label">Inventory</label></div>
+      <div class="column"><label class="label">Quantity</label></div>
+      <div class="column"><label class="label">Remove</label></div>
+    </div>
+    <div *ngFor="let addedInventoryItem of addedInventory; let i = index" class="columns">
+      <div class="column">
+        <div>{{ addedInventoryItem.name }}</div>
+        <div>Unit: {{ addedInventoryItem.unit }}</div>
+      </div>
+      <div formGroupName="{{ i }}" class="column">
+        <input type="hidden" formControlName="id" value="addedInventoryItem.id">
+        <div class="control">
+          <input class="input" type="text" placeholder="{{ addedInventoryItem.unit }}" formControlName="quantity">
+        </div>
+      </div>
+      <div class="column"><button class="button is-danger">X</button></div>
+    </div>
+  </div>
+</form>

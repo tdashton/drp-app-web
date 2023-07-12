@@ -13,6 +13,9 @@ import { RouterModule } from '@angular/router';
 import { SupplyFormComponent } from './supply/supply-form/supply-form.component';
 import { CurrentSupplyComponent } from './supply/current-supply/current-supply.component';
 import { SupplyService } from './supply/supply.service';
+import { DesignFormComponent } from './design/design-form/design-form.component';
+import { DesignComponent } from './design/design.component';
+import { CurrentDesignComponent } from './design/current-design/current-design.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +25,10 @@ import { SupplyService } from './supply/supply.service';
     CurrentInventoryComponent,
     SupplyComponent,
     SupplyFormComponent,
-    CurrentSupplyComponent
+    CurrentSupplyComponent,
+    DesignFormComponent,
+    DesignComponent,
+    CurrentDesignComponent
   ],
   imports: [
     BrowserModule,

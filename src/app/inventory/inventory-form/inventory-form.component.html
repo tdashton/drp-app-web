@@ -1,4 +1,5 @@
-<h1 class="title">Add Inventory</h1>
+<h1 *ngIf="isEditMode()" class="title">Edit Inventory</h1>
+<h1 *ngIf="!isEditMode()" class="title">Add Inventory</h1>
 <form [formGroup]="inventoryForm" (ngSubmit)="onSubmit()">
     <div class="field">
         <label class="label">Name</label>
@@ -29,7 +30,21 @@
             Description is required
         </p>
     </div>
-    <div class="control">
-        <button type="submit" class="button is-primary">Submit</button>
+    <div class="column">
+      <div class="field is-grouped">
+        <div class="control">
+            <button type="submit" class="button is-primary">Submit</button>
+        </div>
+        <div class="control">
+          <button type="button" class="button is-info">
+            Show Supply
+          </button>
+        </div>
+        <div class="control">
+          <button  type="button" class="button is-danger">
+            Remove
+          </button>
+        </div>
+      </div>
     </div>
 </form>

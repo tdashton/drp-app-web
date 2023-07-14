@@ -4,9 +4,12 @@
 <hr>
 <div class="columns">
     <div class="column">
-        <app-inventory-form></app-inventory-form>
+        <app-current-inventory
+            (inventorySelectedEvent)="onSelected($event)"
+        >
+        </app-current-inventory>
     </div>
     <div class="column">
-        <app-current-inventory></app-current-inventory>
+        <app-inventory-form [item]="item"></app-inventory-form>
     </div>
 </div>

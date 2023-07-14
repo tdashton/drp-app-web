@@ -50,6 +50,30 @@ export class InventoryService {
     this.inventoryManager.persist();
   }
 
+  public modifyInventory(id: string, inventory: Inventory): void {
+    const index = this.getInventoryIndexById(id);
+
+    this.inventory[index] = inventory;
+    this.inventoryUpdated.emit(inventory);
+    this.inventoryManager.persist();
+  }
+
+  protected getInventoryIndexById(id: String): number {
+    return this.inventory.findIndex((value: Inventory) => {
+      return value.id === id;
+    });
+  }
+
+  public getInventoryById(id: String): Inventory {
+    const index = this.getInventoryIndexById(id);
+
+    if (!index) {
+      throw new Error('Inventory with given id not found');
+    }
+
+    return this.inventory[index];
+  }
+
   public getInventory(): Inventory[] {
     return this.inventory;
   }

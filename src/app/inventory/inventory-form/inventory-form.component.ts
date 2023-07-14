@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Inventory, InventoryUnits } from 'src/app/models/inventory/inventory.model';
 import { InventoryService } from '../inventory.service';
@@ -6,9 +6,16 @@ import { InventoryService } from '../inventory.service';
 @Component({
 	selector: 'app-inventory-form',
 	templateUrl: './inventory-form.component.html',
-	styles: []
+	styles: [`
+    input.ng-touched.ng-invalid {
+      border: 1px solid red;
+    }
+	`]
 })
-export class InventoryFormComponent {
+export class InventoryFormComponent implements OnChanges {
+	@Input()
+	item: Inventory | null = null;
+
 	protected nameFormControl = new FormControl<string>('', [Validators.required]);
 	protected unitFormControl = new FormControl();
 	protected descriptionFormControl = new FormControl<string>('', [Validators.required]);
@@ -31,6 +38,22 @@ export class InventoryFormComponent {
 		this.inventoryForm
 	}
 
+	protected isEditMode(): boolean {
+		return this.item !== null;
+	}
+
+  ngOnChanges(changes: SimpleChanges) {
+  	this.item = changes['item'].currentValue;
+
+  	if (!this.item) {
+  		return;
+  	}
+  	this.inventoryForm.get('name')!.setValue(this.item.name);
+  	this.inventoryForm.get('unit')!.setValue(this.item.unit);
+  	this.inventoryForm.get('description')!.setValue(this.item.description);
+  	console.log(changes);
+  }
+
 	onSubmit() {
 		if (!this.inventoryForm.valid) {
 			if (this.nameFormControl.invalid) {
@@ -46,7 +69,12 @@ export class InventoryFormComponent {
 			description: this.descriptionFormControl.value !== null ? this.descriptionFormControl.value : undefined,
 		});
 
-		this.inventory.addInventory(inventory);
+		if (this.isEditMode() && this.item) {
+			this.inventory.modifyInventory(this.item.id, inventory);
+
+		} else {
+			this.inventory.addInventory(inventory);
+		}
 
 		console.log('submitted:', this.nameFormControl.value, this.unitFormControl.value, this.descriptionFormControl.value);
 	}

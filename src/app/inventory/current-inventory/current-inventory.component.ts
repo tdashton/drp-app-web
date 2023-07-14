@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { InventoryService } from '../inventory.service';
 import { Inventory } from 'src/app/models/inventory/inventory.model';
 import { Subscription } from 'rxjs';
@@ -6,10 +6,18 @@ import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-current-inventory',
   templateUrl: './current-inventory.component.html',
-  styles: [
-  ]
+  styles: [`
+    .is-clickable {
+      cursor: pointer;
+    }
+    .is-clickable:hover {
+      background-color: bisque;
+    }
+  `]
 })
 export class CurrentInventoryComponent implements OnInit, OnDestroy {
+
+  @Output() inventorySelectedEvent = new EventEmitter<Inventory>();
 
   currentInventory!: Inventory[];
   subscription!: Subscription;
@@ -21,6 +29,10 @@ export class CurrentInventoryComponent implements OnInit, OnDestroy {
     this.subscription = this.inventoryService.inventoryUpdated.subscribe((inventory: Inventory) => {
       console.log(inventory);
     });
+  }
+
+  onClickInventory(item: Inventory): void {
+    this.inventorySelectedEvent.emit(item);
   }
 
   ngOnDestroy(): void {

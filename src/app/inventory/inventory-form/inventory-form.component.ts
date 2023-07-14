@@ -2,6 +2,8 @@ import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Inventory, InventoryUnits } from 'src/app/models/inventory/inventory.model';
 import { InventoryService } from '../inventory.service';
+import { Router } from '@angular/router';
+import { compileNgModule } from '@angular/compiler';
 
 @Component({
   selector: 'app-inventory-form',
@@ -26,7 +28,8 @@ export class InventoryFormComponent implements OnChanges {
 
   public constructor(
     protected formBuilder: FormBuilder,
-    protected inventory: InventoryService
+    protected inventory: InventoryService,
+    protected router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -48,6 +51,7 @@ export class InventoryFormComponent implements OnChanges {
     }
 
     console.log(item.id);
+    this.router.navigate(['/inventory', item.id ,'supply']);
   }
 
   ngOnChanges(changes: SimpleChanges) {

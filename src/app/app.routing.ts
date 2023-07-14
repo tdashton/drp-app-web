@@ -5,8 +5,9 @@ import { DesignFormComponent } from "./design/design-form/design-form.component"
 import { DesignComponent } from "./design/design.component";
 
 const APP_ROUTES: Routes = [
+  { pathMatch: 'prefix', path: 'inventory/:id/supply', component: SupplyComponent, /* children: USER_ROUTES */ },
   { pathMatch: 'prefix', path: 'inventory', component: InventoryComponent },
-  { pathMatch: 'prefix', path: 'supply', component: SupplyComponent, /* children: USER_ROUTES */ },
+  { pathMatch: 'prefix', path: 'supply', redirectTo: '/inventory' },
   { pathMatch: 'prefix', path: 'design', component: DesignComponent, /* children: USER_ROUTES */ },
   { pathMatch: 'prefix', path: '**', redirectTo: '/inventory' },
 ];

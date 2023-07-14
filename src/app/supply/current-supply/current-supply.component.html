@@ -3,17 +3,25 @@
     <h2 class="title">Current Supply</h2>
   </div>
 </div>
+<div class="columns">
+  <div class="column label">
+    Inventory
+  </div>
+  <div class="column label">
+    Cost
+  </div>
+  <div class="column label">
+    Info
+  </div>
+</div>
 <div *ngFor="let supply of currentSupply" class="columns">
   <div class="column">
-    inventory: {{ inventoryService.getInventoryById(supply.inventoryId).name }}
+    {{ inventoryService.getInventoryById(supply.inventoryId).name }}
   </div>
   <div class="column">
-    inv id: {{ supply.inventoryId }}
+    {{ supply.cost }}
   </div>
   <div class="column">
-    cost: {{ supply.cost }}
-  </div>
-  <div class="column">
-    info: {{ supply.info }}
+    {{ supply.info }}
   </div>
 </div>

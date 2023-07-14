@@ -1,3 +1,5 @@
+import { ModelId } from "../model-id";
+
 export enum InventoryUnits {
 	Meter = 'meter',
 	Count = 'count',
@@ -6,7 +8,7 @@ export enum InventoryUnits {
 export class Inventory {
 
 	constructor(
-		public id: string,
+		public id: ModelId,
 		public name: string,
 		public unit: string,
 		public description: string,

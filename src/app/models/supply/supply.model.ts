@@ -1,9 +1,10 @@
 import { FormGroup } from "@angular/forms";
+import { ModelId } from "../model-id";
 
 export class Supply {
 
   constructor(
-    public id: string,
+    public id: ModelId,
     public info: string,
     public cost: number,
     public inventoryId: string,
@@ -11,7 +12,7 @@ export class Supply {
   ) {}
 
   public static fromObject(obj: Partial<Supply>): Supply {
-    const id: string = obj.id ? obj.id : '';
+    const id: ModelId = obj.id ? obj.id : '';
     const info: string = obj.info ? obj.info : '';
     const cost: number = obj.cost ? obj.cost : 0;
     const inventoryId: string = obj.inventoryId ? obj.inventoryId : '';

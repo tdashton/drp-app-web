@@ -53,6 +53,12 @@ export class InventoryService {
   public modifyInventory(id: string, inventory: Inventory): void {
     const index = this.getInventoryIndexById(id);
 
+    if (index === -1) {
+      console.error('nothing found');
+    }
+
+    inventory.id = id;
+
     this.inventory[index] = inventory;
     this.inventoryUpdated.emit(inventory);
     this.inventoryManager.persist();
@@ -67,8 +73,9 @@ export class InventoryService {
   public getInventoryById(id: String): Inventory {
     const index = this.getInventoryIndexById(id);
 
-    if (!index) {
-      throw new Error('Inventory with given id not found');
+    if (index === -1) {
+      console.error('Inventory with given id not found', id, typeof id);
+      console.log(this.inventory);
     }
 
     return this.inventory[index];

@@ -7,7 +7,7 @@ import { Inventory } from '../models/inventory/inventory.model';
 	styles: []
 })
 export class InventoryComponent {
-	protected item: Inventory | null = null;
+	protected item: Inventory = Inventory.fromObject({});
 
 	onSelected(item: Inventory) {
 		this.item = item;

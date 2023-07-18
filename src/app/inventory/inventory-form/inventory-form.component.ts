@@ -55,15 +55,20 @@ export class InventoryFormComponent implements OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
+    if (!this.inventoryForm) {
+      return;
+    }
     this.item = changes['item'].currentValue;
+    console.log(changes);
 
     if (!this.isEditMode()) {
+      this.inventoryForm.reset();
+
       return;
     }
     this.inventoryForm.get('name')!.setValue(this.item.name);
     this.inventoryForm.get('unit')!.setValue(this.item.unit);
     this.inventoryForm.get('description')!.setValue(this.item.description);
-    console.log(changes);
   }
 
   onSubmit() {

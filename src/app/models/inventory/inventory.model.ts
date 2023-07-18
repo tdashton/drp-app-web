@@ -14,6 +14,16 @@ export class Inventory {
 		public description: string,
 	) { }
 
+	public static createEmpty(): Inventory
+	{
+		return Inventory.fromObject({
+			id: '',
+			name: '',
+			unit: '',
+			description: '',
+		})
+	}
+
 	public static fromObject(obj: Partial<Inventory>): Inventory {
 		const id: string = obj.id ? obj.id : '';
 		const name: string = obj.name ? obj.name : '';

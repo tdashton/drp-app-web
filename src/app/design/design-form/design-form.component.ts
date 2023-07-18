@@ -27,7 +27,7 @@ export class DesignFormComponent implements OnInit {
     addedInventory: this.formAddedInventoryControls,
   });
 
-  protected inventory!: Inventory[];
+  protected availableInventory!: Inventory[];
 
   constructor(protected inventoryService: InventoryService) {}
 
@@ -36,7 +36,10 @@ export class DesignFormComponent implements OnInit {
       return;
     }
     console.log('saving inventory to design');
-    console.log(this.addedInventory);
+  }
+
+  public removeInventoryAt(i: number)  {
+    this.formAddedInventoryControls.removeAt(i);
   }
 
   public onClickAddInventory(): void {
@@ -46,16 +49,21 @@ export class DesignFormComponent implements OnInit {
     }
     this.selectedInventoryIndex = Number.parseInt(this.designForm.get('inventory')?.value!);
     console.log(this.designForm.get('inventory')?.value);
-    this.addedInventory.push(this.inventory[this.selectedInventoryIndex]);
     this.formAddedInventoryControls.push(
       new FormGroup({
         id: new FormControl(this.designForm.get('inventory')?.value, [Validators.required]),
         quantity: new FormControl(null, [Validators.required]),
       })
     );
+
+    console.log(this.formAddedInventoryControls.controls);
+  }
+
+  public getInventoryWithId(id: number): Inventory {
+    return this.inventoryService.getInventoryById(String(id));
   }
 
   ngOnInit(): void {
-    this.inventory = this.inventoryService.getInventory();
+    this.availableInventory = this.inventoryService.getInventory();
   }
 }

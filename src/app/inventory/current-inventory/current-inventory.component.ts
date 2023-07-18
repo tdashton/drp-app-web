@@ -18,6 +18,7 @@ import { Subscription } from 'rxjs';
 export class CurrentInventoryComponent implements OnInit, OnDestroy {
 
   @Output() inventorySelectedEvent = new EventEmitter<Inventory>();
+  @Output() addInventoryEvent = new EventEmitter();
 
   currentInventory!: Inventory[];
   subscription!: Subscription;
@@ -29,6 +30,10 @@ export class CurrentInventoryComponent implements OnInit, OnDestroy {
     this.subscription = this.inventoryService.inventoryUpdated.subscribe((inventory: Inventory) => {
       console.log(inventory);
     });
+  }
+
+  onClickAddInventory() {
+    this.addInventoryEvent.emit();
   }
 
   onClickInventory(item: Inventory): void {

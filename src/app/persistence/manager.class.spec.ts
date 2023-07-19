@@ -3,6 +3,8 @@ import { LocalStorage, Manager } from './manager.class';
 import { AppComponent } from '../app.component';
 import { InventoryComponent } from '../inventory/inventory.component';
 import { LocalizedString } from '@angular/compiler';
+import { LocalStorageAdapter } from './local-storage-adapter.class';
+import { StorageAdapter } from './storage-adapter.class';
 
 class ArrayObjectTestModel {
 
@@ -33,7 +35,7 @@ class TestModel {
   }
 }
 
-class LocalStorageMock implements LocalStorage {
+export class LocalStorageMock implements StorageAdapter {
 
   protected items: any = {};
 

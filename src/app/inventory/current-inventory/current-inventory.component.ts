@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/cor
 import { InventoryService } from '../inventory.service';
 import { Inventory } from 'src/app/models/inventory/inventory.model';
 import { Subscription } from 'rxjs';
+import InventoryManager from 'src/app/persistence/inventory.manager.service';
 
 @Component({
   selector: 'app-current-inventory',
@@ -23,11 +24,11 @@ export class CurrentInventoryComponent implements OnInit, OnDestroy {
   currentInventory!: Inventory[];
   subscription!: Subscription;
 
-  constructor (protected inventoryService: InventoryService) { }
+  constructor (protected inventoryManager: InventoryManager) { }
 
   ngOnInit(): void {
-    this.currentInventory = this.inventoryService.getInventory();
-    this.subscription = this.inventoryService.inventoryUpdated.subscribe((inventory: Inventory) => {
+    this.currentInventory = this.inventoryManager.getInstance().getAll();
+    this.subscription = this.inventoryManager.getInstance().modelUpdated.subscribe((inventory: Inventory) => {
       console.log(inventory);
     });
   }

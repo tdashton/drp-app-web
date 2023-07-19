@@ -16,7 +16,7 @@
 </div>
 <div *ngFor="let supply of currentSupply" class="columns">
   <div class="column">
-    {{ inventoryService.getInventoryById(supply.inventoryId).name }}
+    {{ inventoryManager.getInstance().getById(supply.inventoryId).name }}
   </div>
   <div class="column">
     {{ supply.cost }}

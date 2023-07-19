@@ -1,53 +1,98 @@
+import { EventEmitter } from "@angular/core";
+import { ModelId } from "../models/model-id";
+import { StorageAdapter } from "./storage-adapter.class";
 
 export interface LocalStorage {
   getItem(key: string): string | null;
   setItem(key: string, item: any): void;
 };
 
-export class Manager<TModel> {
+export interface HasId {
+  id: ModelId;
+}
 
-  protected objects: TModel[] = [];
+export class Manager<TModel extends HasId> {
+
+  protected models: TModel[] = [];
 
   protected populateDbCallback: () => void = () => {};
 
+  public modelUpdated: EventEmitter<TModel> = new EventEmitter<TModel>;
+
   public constructor(
-    protected localStorage: LocalStorage,
+    protected storageAdapter: StorageAdapter,
     protected storageKey: string,
-    protected factoryMethod: (object: any) => TModel,
+    protected factoryMethod: (object: Partial<TModel>) => TModel,
   ) {}
 
-  public setPopulateDbCallback(func: () => {}): void {
-    this.populateDbCallback = func;
-  };
-
-  protected populateDb(): void {
-    this.populateDbCallback();
-  };
-
-  public getAllEntities(): TModel[] {
-    let data = this.localStorage.getItem(this.storageKey);
+  public getAll(): TModel[] {
+    let data = this.storageAdapter.getItem(this.storageKey);
 
     if (!data) {
       return [];
     }
 
-    const objects = JSON.parse(data);
+    const models = JSON.parse(data);
 
-    if (!Array.isArray(objects)) {
+    if (!Array.isArray(models)) {
       return [];
     }
 
-    this.objects = objects.map(this.factoryMethod);
+    this.models = models.map(this.factoryMethod);
 
-    return this.objects;
+    return this.models;
   }
 
-  public insert(model: TModel): void {
-    this.objects.push(model);
+  public insert(model: TModel) {
+    const nextId = this.models
+      .map((current: TModel): number => Number.parseInt(current.id))
+      .reduce((previous: number, current: number) => {
+        if (current > previous) {
+          return current;
+        }
+        return previous;
+      }, 0) + 1;
+
+    model.id = nextId.toString();
+
+    this.models.push(model);
+    this.modelUpdated.emit(model);
+    this.persist();
   }
 
-  public persist(): void {
-    this.localStorage.setItem(this.storageKey, JSON.stringify(this.objects));
-    console.log(this.objects);
+  public modify(id: string, model: TModel): void {
+    const index = this.getIndexById(id);
+
+    if (index === -1) {
+      console.error('nothing found');
+    }
+
+    model.id = id;
+
+    this.models[index] = model;
+    this.modelUpdated.emit(model);
+    this.persist();
+  }
+
+  public getById(id: String): TModel {
+    const index = this.getIndexById(id);
+
+    if (index === -1) {
+      console.error('DB Object with given id not found', id, typeof id);
+      console.log(this.models);
+    }
+
+    return this.models[index];
+  }
+
+  protected persist(): void {
+    this.storageAdapter.setItem(this.storageKey, JSON.stringify(this.models));
+    console.log(this.models);
+  }
+
+  protected getIndexById(id: String): number {
+    return this.models.findIndex((value: TModel) => {
+      return value.id === id;
+    });
   }
 }

@@ -6,6 +6,8 @@ import { Inventory } from 'src/app/models/inventory/inventory.model';
 import { Supply } from 'src/app/models/supply/supply.model';
 import { SupplyService } from '../supply.service';
 import { ActivatedRoute } from '@angular/router';
+import InventoryManager from 'src/app/persistence/inventory.manager.service';
+import SupplyManager from 'src/app/persistence/supply.manager.service';
 
 @Component({
   selector: 'app-supply-form',
@@ -25,8 +27,8 @@ export class SupplyFormComponent implements OnInit {
 
   constructor(
     protected route: ActivatedRoute,
-    protected inventoryService: InventoryService,
-    protected supplyService: SupplyService,
+    protected inventoryManager: InventoryManager,
+    protected supplyManager: SupplyManager,
   ) { }
 
   onSubmit() {
@@ -42,7 +44,7 @@ export class SupplyFormComponent implements OnInit {
       this.supplyForm.get('amount')?.value ?? -1,
     );
 
-    this.supplyService.addSupply(supply);
+    this.supplyManager.getInstance().insert(supply);
   }
 
   ngOnInit(): void {
@@ -51,6 +53,6 @@ export class SupplyFormComponent implements OnInit {
     if (!id) {
       throw new Error('This route requires an id');
     }
-    this.item = this.inventoryService.getInventoryById(id);
+    this.item = this.inventoryManager.getInstance().getById(id);
   }
 }

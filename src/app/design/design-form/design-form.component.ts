@@ -4,6 +4,7 @@ import { Validators } from '@angular/forms';
 import { FormControl, FormGroup } from '@angular/forms';
 import { InventoryService } from 'src/app/inventory/inventory.service';
 import { Inventory } from 'src/app/models/inventory/inventory.model';
+import InventoryManager from 'src/app/persistence/inventory.manager.service';
 
 @Component({
   selector: 'app-design-form',
@@ -29,7 +30,7 @@ export class DesignFormComponent implements OnInit {
 
   protected availableInventory!: Inventory[];
 
-  constructor(protected inventoryService: InventoryService) {}
+  constructor(protected inventoryManager: InventoryManager) {}
 
   public onSave() {
     if (!this.designForm.valid) {
@@ -60,10 +61,10 @@ export class DesignFormComponent implements OnInit {
   }
 
   public getInventoryWithId(id: number): Inventory {
-    return this.inventoryService.getInventoryById(String(id));
+    return this.inventoryManager.getInstance().getById(String(id));
   }
 
   ngOnInit(): void {
-    this.availableInventory = this.inventoryService.getInventory();
+    this.availableInventory = this.inventoryManager.getInstance().getAll();
   }
 }

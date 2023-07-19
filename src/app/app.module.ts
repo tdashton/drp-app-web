@@ -16,6 +16,12 @@ import { SupplyService } from './supply/supply.service';
 import { DesignFormComponent } from './design/design-form/design-form.component';
 import { DesignComponent } from './design/design.component';
 import { CurrentDesignComponent } from './design/current-design/current-design.component';
+import { DesignService } from './design/design.service';
+import { Manager } from './persistence/manager.class';
+import { Design } from './models/design/design.model';
+import { LocalStorageAdapter } from './persistence/local-storage-adapter.class';
+import InventoryManager from './persistence/inventory.manager.service';
+import SupplyManager from './persistence/supply.manager.service';
 
 @NgModule({
   declarations: [
@@ -34,9 +40,16 @@ import { CurrentDesignComponent } from './design/current-design/current-design.c
     BrowserModule,
     ReactiveFormsModule,
     routing,
-    RouterModule,
+    RouterModule
   ],
-  providers: [InventoryService, SupplyService],
+  providers: [
+    LocalStorageAdapter,
+    InventoryService,
+    SupplyService,
+    DesignService,
+    InventoryManager,
+    SupplyManager,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

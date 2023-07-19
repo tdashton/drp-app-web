@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { DesignService } from './design.service';
 
 @Component({
   selector: 'app-design',
@@ -7,5 +8,7 @@ import { Component } from '@angular/core';
   ]
 })
 export class DesignComponent {
+
+  constructor(protected designService: DesignService) {}
 
 }

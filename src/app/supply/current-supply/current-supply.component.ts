@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { SupplyService } from '../supply.service';
 import { Supply } from 'src/app/models/supply/supply.model';
-import { InventoryService } from 'src/app/inventory/inventory.service';
+import InventoryManager from 'src/app/persistence/inventory.manager.service';
+import SupplyManager from 'src/app/persistence/supply.manager.service';
 
 @Component({
   selector: 'app-current-supply',
@@ -14,15 +15,14 @@ export class CurrentSupplyComponent implements OnInit {
   protected currentSupply!: Supply[];
 
   constructor(
-    protected supplyService: SupplyService,
-    public inventoryService: InventoryService,
+    protected supplyManager: SupplyManager,
+    protected inventoryManager: InventoryManager,
   ) {}
 
   ngOnInit(): void {
-      this.supplyService.supplyUpdated.subscribe((supply: Supply) => {
+      this.supplyManager.getInstance().modelUpdated.subscribe((supply: Supply) => {
         console.log("supply added");
       });
-      this.currentSupply = this.supplyService.getSupply();
+      this.currentSupply = this.supplyManager.getInstance().getAll();
   }
-
 }

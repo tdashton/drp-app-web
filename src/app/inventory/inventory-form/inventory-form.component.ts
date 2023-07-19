@@ -4,6 +4,7 @@ import { Inventory, InventoryUnits } from 'src/app/models/inventory/inventory.mo
 import { InventoryService } from '../inventory.service';
 import { Router } from '@angular/router';
 import { compileNgModule } from '@angular/compiler';
+import InventoryManager from 'src/app/persistence/inventory.manager.service';
 
 @Component({
   selector: 'app-inventory-form',
@@ -28,7 +29,7 @@ export class InventoryFormComponent implements OnChanges {
 
   public constructor(
     protected formBuilder: FormBuilder,
-    protected inventory: InventoryService,
+    protected inventoryManager: InventoryManager,
     protected router: Router,
   ) { }
 
@@ -87,10 +88,10 @@ export class InventoryFormComponent implements OnChanges {
     });
 
     if (this.isEditMode() && this.item) {
-      this.inventory.modifyInventory(this.item.id, inventory);
+      this.inventoryManager.getInstance().modify(this.item.id, inventory);
 
     } else {
-      this.inventory.addInventory(inventory);
+      this.inventoryManager.getInstance().insert(inventory);
     }
 
     console.log('submitted:', this.nameFormControl.value, this.unitFormControl.value, this.descriptionFormControl.value);

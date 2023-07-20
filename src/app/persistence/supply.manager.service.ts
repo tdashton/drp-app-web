@@ -1,7 +1,8 @@
 import { Injectable } from "@angular/core";
-import { LocalStorageAdapter } from "./local-storage-adapter.class";
-import { LocalStorage, Manager } from "./manager.class";
 import { Supply } from "../models/supply/supply.model";
+import { Manager } from "./manager.class";
+import { StorageAdapter } from "./storage-adapter.class";
+import { ModelId } from "../models/model-id";
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,11 @@ export default class SupplyManager {
 
   protected instance: Manager<Supply> | null = null;
 
-  constructor(protected storage: LocalStorageAdapter) {}
+  protected storage: StorageAdapter;
+
+  constructor(storage: StorageAdapter) {
+    this.storage = storage;
+  }
 
   public getInstance(): Manager<Supply> {
     if (this.instance === null) {
@@ -24,5 +29,9 @@ export default class SupplyManager {
     }
 
     return this.instance;
+  }
+
+  public getSupplyBatchesByInventoryId(inventoryId: ModelId): Supply[] {
+    return this.getInstance().getAll().filter((value: Supply) => value.inventoryId === inventoryId);
   }
 }

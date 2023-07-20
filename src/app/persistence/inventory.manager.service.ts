@@ -1,7 +1,9 @@
 import { Injectable } from "@angular/core";
 import { Inventory } from "../models/inventory/inventory.model";
-import { LocalStorageAdapter } from "./local-storage-adapter.class";
-import { LocalStorage, Manager } from "./manager.class";
+import { Manager } from "./manager.class";
+import { StorageAdapter } from "./storage-adapter.class";
+import { ModelId } from "../models/model-id";
+import { Supply } from "../models/supply/supply.model";
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +14,11 @@ export default class InventoryManager {
 
   protected instance: Manager<Inventory> | null = null;
 
-  constructor(protected storage: LocalStorageAdapter) {}
+  protected storage: StorageAdapter;
+
+  constructor(storage: StorageAdapter) {
+    this.storage = storage;
+  }
 
   public getInstance(): Manager<Inventory> {
     if (this.instance === null) {

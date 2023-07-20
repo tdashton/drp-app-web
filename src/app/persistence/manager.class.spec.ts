@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { LocalStorage, Manager } from './manager.class';
+import { Manager } from './manager.class';
 import { AppComponent } from '../app.component';
 import { InventoryComponent } from '../inventory/inventory.component';
 import { LocalizedString } from '@angular/compiler';
@@ -73,7 +73,7 @@ describe('Manager', () => {
     const manager = new Manager<TestModel>(localStorageMock, 'test', TestModel.modelFactory);
 
     expect(manager).toBeDefined();
-    const entities = manager.getAllEntities();
+    const entities = manager.getAll();
     const firstEntity = entities[0];
 
     expect(firstEntity.id).toEqual('an id');

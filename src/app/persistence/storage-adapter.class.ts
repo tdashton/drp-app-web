@@ -1,6 +1,4 @@
-export interface StorageAdapter {
-
-  getItem(key: string): string | null;
-
-  setItem(key: string, item: string): void;
+export abstract class StorageAdapter {
+  abstract getItem(key: string): string | null;
+  abstract setItem(key: string, item: string): void;
 }

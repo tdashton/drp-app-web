@@ -22,6 +22,7 @@ import { Design } from './models/design/design.model';
 import { LocalStorageAdapter } from './persistence/local-storage-adapter.class';
 import InventoryManager from './persistence/inventory.manager.service';
 import SupplyManager from './persistence/supply.manager.service';
+import { StorageAdapter } from './persistence/storage-adapter.class';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,7 @@ import SupplyManager from './persistence/supply.manager.service';
     RouterModule
   ],
   providers: [
-    LocalStorageAdapter,
+    { provide: StorageAdapter, useClass: LocalStorageAdapter },
     InventoryService,
     SupplyService,
     DesignService,

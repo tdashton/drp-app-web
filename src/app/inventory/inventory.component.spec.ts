@@ -5,6 +5,8 @@ import { InventoryFormComponent } from './inventory-form/inventory-form.componen
 import { CurrentInventoryComponent } from './current-inventory/current-inventory.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, RouterModule } from '@angular/router';
+import { StorageAdapter } from '../persistence/storage-adapter.class';
+import { LocalStorageAdapter } from '../persistence/local-storage-adapter.class';
 
 describe('InventoryComponent', () => {
   let component: InventoryComponent;
@@ -17,6 +19,9 @@ describe('InventoryComponent', () => {
         InventoryComponent,
         InventoryFormComponent,
         CurrentInventoryComponent
+      ],
+      providers: [
+        { provide: StorageAdapter, useClass: LocalStorageAdapter }
       ],
       imports: [
         ReactiveFormsModule,

@@ -2,11 +2,6 @@ import { EventEmitter } from "@angular/core";
 import { ModelId } from "../models/model-id";
 import { StorageAdapter } from "./storage-adapter.class";
 
-export interface LocalStorage {
-  getItem(key: string): string | null;
-  setItem(key: string, item: any): void;
-};
-
 export interface HasId {
   id: ModelId;
 }

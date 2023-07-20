@@ -3,6 +3,7 @@ import { Inventory } from '../models/inventory/inventory.model';
 import { Observable, Observer, Operator, OperatorFunction, Subscription } from 'rxjs';
 import { Manager } from '../persistence/manager.class';
 import { LocalStorageAdapter } from '../persistence/local-storage-adapter.class';
+import InventoryManager from '../persistence/inventory.manager.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,20 +14,19 @@ export class InventoryService {
   // protected inventoryManager: Manager<Inventory>;
   // public inventoryUpdated = new EventEmitter<Inventory>();
 
-  // constructor(storage: LocalStorageAdapter) {
+  constructor(protected inventoryManager: InventoryManager) {
+    if (this.inventoryManager.getInstance().getAll().length === 0) {
+      console.log('Inital populate of local inventory.');
+      [
+        new Inventory('1', 'Some inventory', 'meter', 'A description'),
+        new Inventory('2', 'Other inventory', 'meter', 'Another description'),
+        new Inventory('3', 'Keychain', 'count', 'This is a keychain'),
+      ].forEach((newInventory: Inventory) => this.inventoryManager.getInstance().insert(newInventory));
+      this.inventoryManager.getInstance();
+    }
 
-  //   this.inventory = this.inventoryManager.getAllEntities();
-
-  //   if (this.inventory.length === 0) {
-  //     console.log('Inital populate of local inventory.');
-  //     [
-  //       new Inventory('1', 'Some inventory', 'meter', 'A description'),
-  //       new Inventory('2', 'Other inventory', 'meter', 'Another description'),
-  //       new Inventory('3', 'Keychain', 'count', 'This is a keychain'),
-  //     ].forEach((newInventory: Inventory) => this.inventoryManager.insert(newInventory));
-  //     this.inventoryManager.persist();
-  //   }
-  // }
+    console.log(this.inventoryManager.getInstance().getAll());
+  }
 
   // public addInventory(inventory: Inventory) {
   //   const nextId = this.inventory

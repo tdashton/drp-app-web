@@ -9,8 +9,7 @@ export interface HasId {
 export class Manager<TModel extends HasId> {
 
   protected models: TModel[] = [];
-
-  protected populateDbCallback: () => void = () => {};
+  protected modelsLoaded = false;
 
   public modelUpdated: EventEmitter<TModel> = new EventEmitter<TModel>;
 
@@ -18,23 +17,23 @@ export class Manager<TModel extends HasId> {
     protected storageAdapter: StorageAdapter,
     protected storageKey: string,
     protected factoryMethod: (object: Partial<TModel>) => TModel,
-  ) {}
-
-  public getAll(): TModel[] {
+  ) {
     let data = this.storageAdapter.getItem(this.storageKey);
 
     if (!data) {
-      return [];
+      throw new Error('No data for models');
     }
 
     const models = JSON.parse(data);
 
     if (!Array.isArray(models)) {
-      return [];
+      throw new Error('Models data is not an array');
     }
 
     this.models = models.map(this.factoryMethod);
+  }
 
+  public getAll(): TModel[] {
     return this.models;
   }
 
@@ -47,6 +46,8 @@ export class Manager<TModel extends HasId> {
         }
         return previous;
       }, 0) + 1;
+
+    console.log(`nextId: ${nextId}`);
 
     model.id = nextId.toString();
 
@@ -74,7 +75,7 @@ export class Manager<TModel extends HasId> {
 
     if (index === -1) {
       console.error('DB Object with given id not found', id, typeof id);
-      console.log(this.models);
+      console.log(this.storageKey, this.models);
     }
 
     return this.models[index];

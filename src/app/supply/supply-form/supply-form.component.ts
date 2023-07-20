@@ -17,7 +17,7 @@ import SupplyManager from 'src/app/persistence/supply.manager.service';
 })
 export class SupplyFormComponent implements OnInit {
   @Input()
-  item!: Inventory;
+  inventoryItem!: Inventory;
 
   protected supplyForm = new FormGroup({
     cost: new FormControl(null, [Validators.required, Validators.pattern(/^\d+$/)]),
@@ -40,19 +40,16 @@ export class SupplyFormComponent implements OnInit {
       this.supplyForm.get('id')?.value ?? '',
       this.supplyForm.get('info')?.value ?? '',
       this.supplyForm.get('cost')?.value ?? -1,
-      this.item.id,
+      this.inventoryItem.id,
       this.supplyForm.get('amount')?.value ?? -1,
     );
 
     this.supplyManager.getInstance().insert(supply);
+
+    this.supplyForm.reset();
   }
 
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-
-    if (!id) {
-      throw new Error('This route requires an id');
-    }
-    this.item = this.inventoryManager.getInstance().getById(id);
+    // console.log(this.inventoryItem);
   }
 }

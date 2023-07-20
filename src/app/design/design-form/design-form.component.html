@@ -25,6 +25,10 @@
       <div class="column">
         <div class="field is-grouped">
           <div class="control"><button (click)="onClickAddInventory()" class="button is-primary">Add</button></div>
+        </div>
+      </div>
+      <div class="column">
+        <div class="field is-grouped">
           <div class="control"><button (click)="onSave()" [disabled]="!designForm.valid || formAddedInventoryControls.length === 0" class="button is-info">Save</button></div>
           <div class="control"><button (click)="onRemove(item)" [disabled]="!isEditMode()" class="button is-danger">Delete</button></div>
         </div>

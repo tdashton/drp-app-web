@@ -14,6 +14,10 @@ export class DesignComponent {
 
   constructor(protected designService: DesignService) {}
 
+  onAdd(): void {
+    this.item = Design.createEmpty();
+  }
+
   onSelected(item: Design) {
     this.item = item;
   }

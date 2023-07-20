@@ -19,6 +19,7 @@ export class CurrentDesignComponent implements OnInit {
   currentDesigns!: Design[]
 
   @Output() designSelectedEvent = new EventEmitter<Design>();
+  @Output() designAddEvent = new EventEmitter();
 
   constructor(
     protected designManager: DesignManager,
@@ -28,7 +29,9 @@ export class CurrentDesignComponent implements OnInit {
     this.currentDesigns = this.designManager.getInstance().getAll();
   }
 
-  public onClickAddDesign() {}
+  public onClickAddDesign() {
+    this.designAddEvent.emit();
+  }
 
   public onClickDesign(design: Design) {
     this.designSelectedEvent.emit(design);

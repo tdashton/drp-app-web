@@ -12,7 +12,7 @@
       <label class="label">Cost</label>
     </div>
     <div class="column">
-      <input formControlName="cost" class="input" type="text" placeholder="How much?">
+      <input formControlName="cost" class="input" type="number" placeholder="How much?">
       <p *ngIf="supplyForm.get('cost')?.errors?.['required']" class="help is-danger">
         This field is required
       </p>
@@ -24,13 +24,14 @@
   <div class="columns">
     <div class="column">
       <label class="label">Amount</label>
+      <div>Unit: {{ inventoryItem.unit }}</div>
     </div>
     <div class="column">
-      <input formControlName="amount" id="amount" class="input" type="text" placeholder="How many?">
+      <input formControlName="amount" id="amount" class="input" type="number" placeholder="How many {{ inventoryItem.unit }}?">
       <p *ngIf="supplyForm.get('amount')?.errors?.['required']" class="help is-danger">
         This field is required
       </p>
-      <p *ngIf="supplyForm.get('cost')?.errors?.['pattern']" class="help is-danger">
+      <p *ngIf="supplyForm.get('amount')?.errors?.['pattern']" class="help is-danger">
         Must be only digits
       </p>
     </div>

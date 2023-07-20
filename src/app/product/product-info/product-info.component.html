@@ -1,0 +1,27 @@
+<div class="content">
+  <h1>Product preview</h1>
+  <div>Name: {{ inputDesign.name }}</div>
+  <div>Description: {{ inputDesign.description }}</div>
+  <div>Components:</div>
+  <hr>
+  <div *ngIf="inputDesign.inventory.length !== 0" class="columns">
+    <div class="column is-2">Inventory</div>
+    <div class="column is-2">Amount</div>
+    <div class="column is-2">Cost</div>
+    <div class="column is-2">Total</div>
+  </div>
+  <div *ngFor="let costPreviewOuter of designService.previewCosts(inputDesign);">
+    <div *ngFor="let costPreviewInner of costPreviewOuter;" class="columns">
+      <div class="column is-2">{{ inventoryManager.getInstance().getById(costPreviewInner.inventoryId).name }}</div>
+      <div class="column is-2">{{ costPreviewInner.amount }}</div>
+      <div class="column is-2">{{ costPreviewInner.cost }}</div>
+      <div class="column is-2">{{ costPreviewInner.total }}</div>
+    </div>
+  </div>
+  <div class="columns">
+    <div class="column is-2 is-offset-6"><hr></div>
+  </div>
+  <div class="columns">
+    <div class="column is-2 is-offset-6">Total: {{ designService.previewCostsSummary(inputDesign).total }}</div>
+  </div>
+</div>

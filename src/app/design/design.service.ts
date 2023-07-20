@@ -4,6 +4,7 @@ import SupplyManager from '../persistence/supply.manager.service';
 import { DesignInventory } from '../models/design/design-inventory.model';
 import { Inventory } from '../models/inventory/inventory.model';
 import { Supply } from '../models/supply/supply.model';
+import { ModelId } from '../models/model-id';
 
 export enum InventoryXIXO {
   FIFO = 'fifo',
@@ -11,6 +12,7 @@ export enum InventoryXIXO {
 };
 
 interface SupplyCosts {
+  inventoryId: ModelId,
   amount: number,
   cost: number,
   total: number,
@@ -69,7 +71,7 @@ export class DesignService {
     inventory.forEach((supplies: Supply[], indexOuter: number) => {
       costs[indexOuter] = new Array();
       supplies.forEach((supply: Supply, indexInner: number) => {
-        costs[indexOuter].push({ amount: supply.amount, cost: supply.cost, total: supply.cost * supply.amount });
+        costs[indexOuter].push({ inventoryId: supply.inventoryId, amount: supply.amount, cost: supply.cost, total: supply.cost * supply.amount });
       })
     });
 
@@ -88,7 +90,7 @@ export class DesignService {
           current.total += prev.total;
 
           return current;
-        }, { amount: 0, cost: 0, total: 0 })
+        }, { inventoryId: "-1", amount: 0, cost: 0, total: 0 })
       )
     });
 

@@ -116,7 +116,7 @@ export class DesignFormComponent implements OnInit {
       })
     );
 
-    // console.log(this.formAddedInventoryControls.controls);
+    console.log(this.formAddedInventoryControls.controls);
   }
 
   public getInventoryWithId(id: number): Inventory {

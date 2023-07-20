@@ -1,0 +1,12 @@
+<div>
+  Some info
+</div>
+<hr>
+<div class="columns">
+  <div class="column">
+    <app-current-product (eventOnSelectDesign)="onSelectDesign($event)"></app-current-product>
+  </div>
+  <div class="column">
+    <app-product-info [inputDesign]="design"></app-product-info>
+  </div>
+</div>

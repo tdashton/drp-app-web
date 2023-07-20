@@ -20,9 +20,9 @@ export class SupplyFormComponent implements OnInit {
   inventoryItem!: Inventory;
 
   protected supplyForm = new FormGroup({
-    cost: new FormControl(null, [Validators.required, Validators.pattern(/^\d+$/)]),
-    amount: new FormControl(null, [Validators.required, Validators.pattern(/^\d+$/)]),
-    info: new FormControl(''),
+    cost: new FormControl<number | null>(null, [Validators.required, Validators.pattern(/^([\d.])+$/)]),
+    amount: new FormControl<number | null>(null, [Validators.required, Validators.pattern(/^\d+$/)]),
+    info: new FormControl<string>(''),
   });
 
   constructor(

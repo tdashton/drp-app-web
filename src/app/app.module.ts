@@ -23,6 +23,9 @@ import { LocalStorageAdapter } from './persistence/local-storage-adapter.class';
 import InventoryManager from './persistence/inventory.manager.service';
 import SupplyManager from './persistence/supply.manager.service';
 import { StorageAdapter } from './persistence/storage-adapter.class';
+import { ProductComponent } from './product/product.component';
+import { CurrentProductComponent } from './product/current-product/current-product.component';
+import { ProductInfoComponent } from './product/product-info/product-info.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +38,10 @@ import { StorageAdapter } from './persistence/storage-adapter.class';
     CurrentSupplyComponent,
     DesignFormComponent,
     DesignComponent,
-    CurrentDesignComponent
+    CurrentDesignComponent,
+    ProductComponent,
+    CurrentProductComponent,
+    ProductInfoComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,8 @@
+<div class="content">
+  <h1>Designs</h1>
+  <div *ngFor="let design of designs;" class="columns">
+    <div (click)="onSelectDesign(design)" class="column is-clickable">
+      <div>Name: {{ design.name }}</div>
+      <div>Description: {{ design.description }}</div>
+  </div>
+</div>

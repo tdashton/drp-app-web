@@ -4,7 +4,11 @@
 <hr>
 <div class="columns">
     <div class="column">
-        <app-current-design (designSelectedEvent)="onSelected($event)"></app-current-design>
+        <app-current-design
+            (designSelectedEvent)="onSelected($event)"
+            (designAddEvent)="onAdd()"
+        >
+        </app-current-design>
     </div>
     <div class="column">
         <app-design-form [item]="item"></app-design-form>

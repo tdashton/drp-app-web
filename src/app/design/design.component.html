@@ -4,9 +4,9 @@
 <hr>
 <div class="columns">
     <div class="column">
-        <app-design-form></app-design-form>
+        <app-current-design (designSelectedEvent)="onSelected($event)"></app-current-design>
     </div>
     <div class="column">
-        <app-current-design></app-current-design>
+        <app-design-form [item]="item"></app-design-form>
     </div>
 </div>

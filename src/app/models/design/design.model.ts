@@ -8,14 +8,22 @@ export class Design {
     public name: string,
     public description: string,
     public inventory: DesignInventory[],
-   ) {}
+  ) {}
 
-    public static fromObject(obj: Partial<Design>): Design {
+  public static fromObject(obj: Partial<Design>): Design {
     const id: ModelId = obj.id ? obj.id : '';
     const name: string = obj.name ? obj.name : '';
     const description: string = obj.description ? obj.description : '';
     const inventory: DesignInventory[] = obj.inventory ? obj.inventory.map((obj) => DesignInventory.fromObject(obj)) : [];
 
     return new Design(id, name, description, inventory);
+  }
+
+  public static createEmpty(): Design {
+    return Design.fromObject({});
+  }
+
+  public containsInventory(id: ModelId): boolean {
+    return this.inventory.find((value: DesignInventory) => value.inventoryId === id) !== undefined;
   }
 }

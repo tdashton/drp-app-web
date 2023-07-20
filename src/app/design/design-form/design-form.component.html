@@ -2,7 +2,13 @@
   <div class="field">
     <label class="label">What are you designing?</label>
     <div class="control">
-      <input class="input" type="text" placeholder="Description" formControlName="description">
+      <input class="input" type="text" placeholder="Name" formControlName="name">
+    </div>
+  </div>
+  <div class="field">
+    <label class="label">Description:</label>
+    <div class="control">
+      <textarea class="input" type="textarea" placeholder="Description" formControlName="description"></textarea>
     </div>
   </div>
   <div class="field">
@@ -12,7 +18,7 @@
         <div class="select">
           <select formControlName="inventory">
             <option [ngValue]="null" disabled>Choose your inventory</option>
-            <option *ngFor="let item of availableInventory" [ngValue]="item.id">{{ item.name }}</option>
+            <option [disabled]="item.containsInventory(availableInventoryItem.id)" *ngFor="let availableInventoryItem of availableInventory" [ngValue]="availableInventoryItem.id">{{ availableInventoryItem.name }}</option>
           </select>
         </div>
       </div>
@@ -20,6 +26,7 @@
         <div class="field is-grouped">
           <div class="control"><button (click)="onClickAddInventory()" class="button is-primary">Add</button></div>
           <div class="control"><button (click)="onSave()" [disabled]="!designForm.valid || formAddedInventoryControls.length === 0" class="button is-info">Save</button></div>
+          <div class="control"><button (click)="onRemove(item)" [disabled]="!isEditMode()" class="button is-danger">Delete</button></div>
         </div>
       </div>
     </div>
@@ -38,10 +45,10 @@
       <div formGroupName="{{ i }}" class="column">
         <input type="hidden" formControlName="id" [value]="addedInventoryItem.get('id')">
         <div class="control">
-          <input class="input" type="text" [placeholder]="getInventoryWithId(addedInventoryItem.get('id')!.value).unit" formControlName="quantity">
+          <input class="input is-small" type="text" [placeholder]="getInventoryWithId(addedInventoryItem.get('id')!.value).unit" formControlName="quantity">
         </div>
       </div>
-      <div class="column"><button class="button is-danger" (click)="removeInventoryAt(i)">X</button></div>
+      <div class="column"><button class="button is-danger is-small" (click)="removeInventoryAt(i)">X</button></div>
     </div>
   </div>
 </form>

@@ -1,6 +1,7 @@
 import { EventEmitter } from "@angular/core";
 import { ModelId } from "../models/model-id";
 import { StorageAdapter } from "./storage-adapter.class";
+import { TmplAstContent } from "@angular/compiler";
 
 export interface HasId {
   id: ModelId;
@@ -20,17 +21,17 @@ export class Manager<TModel extends HasId> {
   ) {
     let data = this.storageAdapter.getItem(this.storageKey);
 
-    if (!data) {
-      throw new Error('No data for models');
+    let modelsData = [];
+
+    if (data) {
+      modelsData = JSON.parse(data);
     }
 
-    const models = JSON.parse(data);
-
-    if (!Array.isArray(models)) {
+    if (!Array.isArray(modelsData)) {
       throw new Error('Models data is not an array');
     }
 
-    this.models = models.map(this.factoryMethod);
+    this.models = modelsData.map(this.factoryMethod);
   }
 
   public getAll(): TModel[] {
@@ -79,6 +80,18 @@ export class Manager<TModel extends HasId> {
     }
 
     return this.models[index];
+  }
+
+  public remove(id: ModelId): void {
+    const index = this.getIndexById(id);
+
+    if (index === -1) {
+      console.error('DB Object with given id not found', id, typeof id);
+      console.log(this.storageKey, this.models);
+    }
+
+    this.models.splice(index, 1);
+    this.persist();
   }
 
   protected persist(): void {

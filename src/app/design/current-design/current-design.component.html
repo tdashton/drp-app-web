@@ -1,1 +1,13 @@
-<p>current-design works!</p>
+<div *ngFor="let item of currentDesigns" (click)="onClickDesign(item)" class="columns">
+  <div class="column is-clickable">
+    <p>
+      Name: {{ item.name }} <br/>
+      Description: {{ item.description }}
+    </p>
+  </div>
+</div>
+<div class="columns">
+  <div class="column">
+    <button class="button is-primary is-small" (click)="onClickAddDesign()">Add Design</button>
+  </div>
+</div>

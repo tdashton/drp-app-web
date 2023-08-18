@@ -8,9 +8,9 @@ export enum InventoryUnits {
 export class Inventory {
 
 	constructor(
-		public id: ModelId,
+		public id: ModelId, // todo number / psql id
 		public name: string,
-		public unit: string,
+		public unit: string, // todo number
 		public description: string,
 	) { }
 
